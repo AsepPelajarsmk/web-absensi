@@ -1,0 +1,4 @@
+import { createServerClient } from '@supabase/ssr';import { NextResponse,type NextRequest } from 'next/server';
+type CookieItem={name:string;value:string;options:Record<string,unknown>};
+export async function middleware(request:NextRequest){let response=NextResponse.next({request});const db=createServerClient(process.env.NEXT_PUBLIC_SUPABASE_URL!,process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,{cookies:{getAll:()=>request.cookies.getAll(),setAll(cs:CookieItem[]){cs.forEach(({name,value})=>request.cookies.set(name,value));response=NextResponse.next({request});cs.forEach(({name,value,options})=>response.cookies.set(name,value,options))}}});const {data:{user}}=await db.auth.getUser();if(!user&&(/\/guru|\/siswa/.test(request.nextUrl.pathname)))return NextResponse.redirect(new URL('/',request.url));return response}
+export const config={matcher:['/guru/:path*','/siswa/:path*']};

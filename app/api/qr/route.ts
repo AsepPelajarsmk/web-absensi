@@ -1,0 +1,2 @@
+import { NextResponse } from 'next/server';import { currentProfile } from '@/lib/auth';import { admin } from '@/lib/supabase/admin';
+export async function GET(){const p=await currentProfile();if(!p||p.role!=='GURU')return NextResponse.json({error:'Tidak diizinkan'},{status:401});const {data,error}=await admin().rpc('daily_qr_token');if(error)return NextResponse.json({error:'Gagal membuat QR'},{status:500});return NextResponse.json(data)}

@@ -1,0 +1,2 @@
+import Link from 'next/link';
+export default function Home(){return <main className="hero"><section className="hero-box"><p className="badge">SISTEM SEKOLAH DIGITAL</p><h1 className="title">ABSENSI<br/>KELAS.</h1><p>Absen aman dengan QR, jadwal, piket, tugas, dan rekap kelas — semua dalam satu tempat.</p><div className="actions"><Link className="btn green" href="/login/siswa">MASUK SISWA →</Link><Link className="btn pink" href="/login/guru">MASUK GURU →</Link></div></section></main>}
